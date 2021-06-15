@@ -1,0 +1,479 @@
+@use 'reset' as*;
+@use 'variables' as*;
+@use 'fonts' as*;
+@use 'mixins' as*;
+
+* {
+    font-family: raleway;
+}
+
+html {
+    font-size: 16px;
+}
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.root {
+    @include flexible(initial, initial, row);
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.header {
+    @include flexible(initial, space-between, column);
+    flex: 1 0;
+    min-width: 270px;
+    min-height: 889px;
+    padding: 1em 1em 3em;
+    background-image: url("../assets/img/Cloud-background.png");
+    background-color: $dark-gray;
+    background-repeat: no-repeat;
+    background-position: 50% 11%;
+    background-size: 160%;
+    background-blend-mode: soft-light;
+    gap: 2em;
+    position: relative;
+
+    &__nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $dark-gray;
+
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+
+        &--visible {
+            transform: translateX(0);
+            z-index: 2;
+        }
+    }
+
+    &__inner {
+        width: 95%;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: right;
+    }
+
+    &__form {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+
+        gap: 1em;
+        min-height: 48px;
+    }
+
+    &__input-group {
+        display: flex;
+        flex: 2.8 0;
+
+        border: 1px solid $very-light-gray;
+    }
+
+    &__input {
+        flex-basis: 100%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: $very-light-gray;
+        font-size: 1rem;
+        min-height: 48px;
+    }
+
+    &__button--search {
+        flex: 1 0;
+    }
+    &__close {
+        width: 1rem;
+        height: 1rem;
+        border: none;
+        margin: 1rem 0;
+        background-color: transparent;
+        background-image: url("../assets/img/close.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+    }
+
+    &__list {
+        max-height: 700px;
+        overflow-y: auto;
+        text-align: left;
+    }
+
+    &__list-item {
+        cursor: pointer;
+        padding: 1.35em 1em;
+        display: block;
+        border: 1px solid #616475;
+        margin-bottom: 1rem;
+        background-image: url("../assets/img/arrow.svg");
+        background-repeat: no-repeat;
+        background-position: 98% center;
+        background-size: 1.5em;
+        color: $very-light-gray;
+    }
+
+    &__section {
+        @include flexible(space-between, center);
+
+        &--second {
+            flex-direction: column;
+            gap: 5em;
+            margin-top: 4.5rem;
+        }
+
+        &--third {
+            flex-direction: column;
+            color: $grayish-blue;
+            gap: 3rem;
+        }
+    }
+
+    &__button {
+        cursor: pointer;
+        border: none;
+        background-color: $gray;
+        color: $very-light-gray;
+        padding: 0.7em 1.3em;
+        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.4);
+        font-size: 1rem;
+
+        &--circle {
+            border-radius: 50%;
+            padding: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-image: url("../assets/img/location.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        &--search {
+            background-color: #3c47e9;
+        }
+    }
+
+    &__img {
+        width: 150px;
+    }
+
+    &__weather {
+        @include flexible(center, center, column);
+        gap: 3em;
+    }
+
+    &__cent {
+        font-size: 3.5rem;
+        position: relative;
+        color: $gray;
+        margin-left: 0.5rem;
+
+        &::before {
+            @include pseudoelement(1rem, 1rem);
+            background-color: inherit;
+            top: 0.5rem;
+            left: -0.9rem;
+            border-radius: 50%;
+            border: 3px solid $gray;
+        }
+    }
+    &__temp {
+        display: block;
+        font-size: 9rem;
+        letter-spacing: 8px;
+        color: $very-light-gray;
+    }
+
+    &__time {
+        font-size: 2.25rem;
+    }
+
+    &__today {
+        font-size: 1.125rem;
+    }
+
+    &__icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        background-image: url("../assets/img/place.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+
+        &--search {
+            min-width: 40px;
+            align-self: center;
+            background-image: url("../assets/img/search.svg");
+        }
+    }
+
+    &__city {
+        @include flexible(center, center);
+        margin-top: 2rem;
+    }
+}
+
+.loader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 6rem;
+    height: 6rem;
+
+    &__img {
+        width: 100%;
+    }
+}
+
+.main {
+    background-color: $very-dark-gray;
+    flex: 2.29 0;
+    min-width: 73vw;
+    min-height: 925px;
+    position: relative;
+}
+
+.section {
+    &__title {
+        @include flexible(center, center);
+        gap: 0.5rem;
+        color: $very-light-gray;
+        flex-basis: 100%;
+        justify-self: center;
+
+        &--left {
+            display: block;
+            padding: 0;
+        }
+    }
+
+    &__cards {
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        @include flexible(center, initial);
+        flex-wrap: wrap;
+        padding: 2rem;
+        padding-bottom: 3.5rem;
+        gap: 2em;
+
+        &--hight {
+            padding-left: 1.46em;
+            padding-right: 1.46em;
+            flex-flow: row wrap;
+        }
+    }
+
+    &__button {
+        cursor: pointer;
+        border: none;
+        width: 2.6rem;
+        height: 2.6rem;
+        background-color: $gray;
+        color: $very-light-gray;
+        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.4);
+        font-size: 18px;
+        border-radius: 50%;
+        transition: backgrounrd-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+        &--active {
+            background-color: $very-light-gray;
+            color: $very-dark-gray;
+
+            .section__span::before {
+                border-color: $very-dark-gray;
+            }
+        }
+    }
+
+    &__span {
+        display: block;
+        @include center-width(50%);
+        position: relative;
+        font-weight: bold;
+
+        &::before {
+            @include pseudoelement(8px, 8px);
+            border: 2px solid $very-light-gray;
+            border-radius: 50%;
+            top: 3px;
+            left: -6.6px;
+        }
+    }
+}
+
+.card {
+    background-color: $dark-gray;
+    color: $very-light-gray;
+    @include flexible(space-between, center, column);
+    padding: 1em;
+    min-width: 124px;
+
+    &__title {
+        font-size: 1rem;
+        margin-bottom: 0.86rem;
+        font-weight: 500;
+    }
+
+    &__body {
+        width: 56.44px;
+        margin-bottom: 1.5rem;
+    }
+
+    &__footer {
+        @include flexible(center, flex-end);
+        gap: 1em;
+    }
+
+    &__temp {
+        &--gray {
+            color: $gray;
+        }
+    }
+
+    &--invisible {
+        padding: 0;
+    }
+
+    &--hight {
+        flex: 1 0;
+        padding: 1.375em 3.1em 2.5em 3.1em;
+        align-items: stretch;
+        text-align: center;
+        justify-content: space-around;
+        gap: 0;
+        min-width: auto;
+
+        .card__title {
+            margin-bottom: 0;
+        }
+
+        .card__body {
+            font-size: 4rem;
+            font-family: "raleway-bold";
+            width: 100%;
+            margin-bottom: 0;
+
+            &--first {
+                margin-bottom: 0.4em;
+            }
+
+            &--second {
+                margin-top: 0.25em;
+                margin-bottom: 0.25em;
+            }
+        }
+
+        .card__icon {
+            width: 1.45em;
+            height: 1.45em;
+            background-color: $gray;
+            border-radius: 50%;
+            background-image: url("../assets/img/navigation.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 70%;
+            transform: rotate(var(--deg));
+        }
+
+        .card__footer--range {
+            display: block;
+        }
+
+        .card__span {
+            font-size: 2rem;
+            font-weight: 500;
+
+            &--small {
+                font-size: 0.875rem;
+            }
+        }
+
+        .card__range {
+            @include flexible(space-between, center);
+            flex-wrap: wrap;
+            color: $light-grayish-blue;
+            font-weight: 600;
+            font-size: 0.75rem;
+            position: relative;
+        }
+
+        .card__input {
+            flex-basis: 100%;
+            height: 0.5rem;
+            background-color: $very-light-gray;
+            position: relative;
+            border-radius: 5em;
+            margin-top: 0.2rem;
+
+            &::before {
+                @include pseudoelement(var(--range), 100%);
+                background-color: #ffec65;
+                border-radius: inherit;
+            }
+
+            &::after {
+                @include pseudoelement(1rem, 1rem);
+                text-align: right;
+                content: "%";
+                bottom: -1.2rem;
+                right: 0;
+            }
+        }
+
+        .card__number {
+            letter-spacing: 1px;
+
+            &--center {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+        }
+    }
+}
+
+.footer {
+    background-color: transparent;
+    text-align: center;
+    padding-bottom: 1.4em;
+    font-size: 0.9rem;
+    color: $light-grayish-blue;
+
+    a {
+        color: inherit;
+        text-decoration: underline;
+    }
+}
+
+@media (min-width: 360px) {
+    .header {
+        min-width: 300px;
+    }
+    .card--hight {
+        min-width: 328px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .header {
+        min-width: 460px;
+    }
+
+    .main {
+        min-width: 67vw;
+    }
+}
